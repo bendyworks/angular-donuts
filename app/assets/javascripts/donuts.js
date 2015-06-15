@@ -5,6 +5,14 @@ var donutApp = angular.module('donutApp', ['restangular', 'ui.grid']);
 // TODO specify injected objects so minification works
 donutApp.controller('indexController', ['$scope', 'Restangular', function($scope, Restangular) {
   $scope.gridOptions = {
+    columnDefs: [
+      {name: 'title', cellTemplate: '<a href="{{row.entity.url}}">{{row.entity.title}}</a>'},
+      {name: 'flavor'},
+      {name: 'calories'},
+      {name: 'brand'},
+      {name: 'shape'},
+      {name: 'country'}
+    ],
     data: []
   };
 
@@ -16,6 +24,7 @@ donutApp.controller('indexController', ['$scope', 'Restangular', function($scope
         calories: i.calories,
         brand: i.brand,
         shape: i.shape,
+        url: i.url,
         country: i.country
       };
     });
