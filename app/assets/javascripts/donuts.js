@@ -21,13 +21,15 @@ donutApp.controller('indexController', ['$scope', 'Restangular', function($scope
 
   Restangular.all('donuts.json').getList().then(function(donuts) {
     $scope.gridOptions.data = _.map(donuts, function(i) {
+      var resourceUrl = function(u) { (u || '').replace(/\.json$/, ''); };
+
       return {
         title: i.title,
         flavor: i.flavor,
         calories: i.calories,
         brand: i.brand,
         shape: i.shape,
-        url: i.url,
+        url: resourceUrl(i.url),
         country: i.country
       };
     });
