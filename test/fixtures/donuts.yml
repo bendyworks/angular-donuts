@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  flavor: MyString
+  calories: 1.5
+  brand: MyString
+  shape: 1
+  title: MyString
+  country: MyString
+
+two:
+  flavor: MyString
+  calories: 1.5
+  brand: MyString
+  shape: 1
+  title: MyString
+  country: MyString

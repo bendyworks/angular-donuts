@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Donuts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Flavor</th>
+      <th>Calories</th>
+      <th>Brand</th>
+      <th>Shape</th>
+      <th>Title</th>
+      <th>Country</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donuts.each do |donut| %>
+      <tr>
+        <td><%= donut.flavor %></td>
+        <td><%= donut.calories %></td>
+        <td><%= donut.brand %></td>
+        <td><%= donut.shape %></td>
+        <td><%= donut.title %></td>
+        <td><%= donut.country %></td>
+        <td><%= link_to 'Show', donut %></td>
+        <td><%= link_to 'Edit', edit_donut_path(donut) %></td>
+        <td><%= link_to 'Destroy', donut, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Donut', new_donut_path %>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Flavor:</strong>
+  <%= @donut.flavor %>
+</p>
+
+<p>
+  <strong>Calories:</strong>
+  <%= @donut.calories %>
+</p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @donut.brand %>
+</p>
+
+<p>
+  <strong>Shape:</strong>
+  <%= @donut.shape %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @donut.title %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @donut.country %>
+</p>
+
+<%= link_to 'Edit', edit_donut_path(@donut) %> |
+<%= link_to 'Back', donuts_path %>

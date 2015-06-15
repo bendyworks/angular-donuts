@@ -1,0 +1,41 @@
+<%= form_for(@donut) do |f| %>
+  <% if @donut.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@donut.errors.count, "error") %> prohibited this donut from being saved:</h2>
+
+      <ul>
+      <% @donut.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :flavor %><br>
+    <%= f.text_field :flavor %>
+  </div>
+  <div class="field">
+    <%= f.label :calories %><br>
+    <%= f.text_field :calories %>
+  </div>
+  <div class="field">
+    <%= f.label :brand %><br>
+    <%= f.text_field :brand %>
+  </div>
+  <div class="field">
+    <%= f.label :shape %><br>
+    <%= f.select :shape, Donut.shapes.keys %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :country %><br>
+    <%= f.text_field :country %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
