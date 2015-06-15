@@ -1,9 +1,13 @@
 console.log('im alive');
 
-var donutApp = angular.module('donutApp', ['restangular', 'ui.grid']);
+var donutApp = angular.module('donutApp', ['restangular',
+                                           'ui.grid',
+                                           'ui.grid.edit',
+                                           'ng-rails-csrf']);
 
 donutApp.controller('indexController', ['$scope', 'Restangular', 'uiGridConstants',
   function($scope, Restangular, uiGridConstants) {
+    Restangular.setRequestSuffix('.json');
     $scope.gridOptions = {
       enableFiltering: true,
       columnDefs: [
@@ -12,10 +16,15 @@ donutApp.controller('indexController', ['$scope', 'Restangular', 'uiGridConstant
           type: 'string',
           cellTemplate: '<a href="{{row.entity.url}}">{{row.entity.title}}</a>'
         },
-        {name: 'flavor', type: 'string'},
+        {
+          name: 'flavor',
+          type: 'string',
+          enableCellEdit: true
+        },
         {
           name: 'calories',
           type: 'number',
+          enableCellEdit: true,
           filters: [
             {
               condition: uiGridConstants.filter.GREATER_THAN,
@@ -34,18 +43,27 @@ donutApp.controller('indexController', ['$scope', 'Restangular', 'uiGridConstant
       data: []
     };
 
-    Restangular.all('donuts.json').getList().then(function(donuts) {
-      $scope.gridOptions.data = _.map(donuts, function(i) {
-        var resourceUrl = function(u) { (u || '').replace(/\.json$/, ''); };
+    $scope.gridOptions.onRegisterApi = function(gridApi) {
+      $scope.gridApi = gridApi;
+      gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+        rowEntity.resource[colDef.name] = rowEntity[colDef.name];
+        rowEntity.resource.put();
+      });
+    };
+
+    Restangular.all('donuts').getList().then(function(donuts) {
+      $scope.gridOptions.data = _.map(donuts, function(d) {
+        var resourceUrl = function(u) { return (u || '').replace(/\.json$/, ''); };
 
         return {
-          title: i.title,
-          flavor: i.flavor,
-          calories: i.calories,
-          brand: i.brand,
-          shape: i.shape,
-          url: resourceUrl(i.url),
-          country: i.country
+          title: d.title,
+          flavor: d.flavor,
+          calories: d.calories,
+          brand: d.brand,
+          shape: d.shape,
+          url: resourceUrl(d.url),
+          country: d.country,
+          resource: d
         };
       });
     });

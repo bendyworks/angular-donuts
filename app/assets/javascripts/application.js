@@ -17,4 +17,5 @@
 //= require lodash
 //= require angular-ui-grid
 //= require restangular
+//= require ng-rails-csrf
 //= require_tree .

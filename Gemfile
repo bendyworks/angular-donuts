@@ -26,6 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 source 'https://rails-assets.org' do
   gem 'rails-assets-angular-ui-grid'
   gem 'rails-assets-restangular'
+  gem 'rails-assets-ng-rails-csrf'
 end
 
 # Use ActiveModel has_secure_password
