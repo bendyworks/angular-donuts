@@ -37,7 +37,17 @@ donutApp.controller('indexController', ['$scope', 'Restangular', 'uiGridConstant
           ],
         },
         {name: 'brand', type: 'string'},
-        {name: 'shape', type: 'string'},
+        {
+          name: 'shape',
+          type: 'string',
+          editableCellTemplate: 'ui-grid/dropdownEditor',
+          editDropdownValueLabel: 'shape',
+          editDropdownOptionsArray: [
+          {id: 'donut', shape: 'donut'},
+          {id: 'filled', shape: 'filled'},
+          {id: 'hole', shape: 'hole'},
+          {id: 'fritter', shape: 'fritter'}]
+        },
         {name: 'country', type: 'string'}
       ],
       data: []
