@@ -17,11 +17,11 @@ ActiveRecord::Schema.define(version: 20150615144407) do
   enable_extension "plpgsql"
 
   create_table "donuts", force: :cascade do |t|
-    t.string   "flavor"
-    t.float    "calories"
+    t.string   "flavor",     null: false
+    t.float    "calories",   null: false
     t.string   "brand"
-    t.integer  "shape"
-    t.string   "title"
+    t.integer  "shape",      null: false
+    t.string   "title",      null: false
     t.string   "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -1,5 +1,3 @@
-console.log('im alive');
-
 var donutApp = angular.module('donutApp', ['restangular',
                                            'ui.grid',
                                            'ui.grid.edit',
@@ -11,8 +9,11 @@ donutApp.controller('indexController', ['$scope', 'Restangular', 'uiGridConstant
     Restangular.setRequestSuffix('.json');
     $scope.dialogShown = false;
 
+    $scope.error = '';
+
     $scope.update = function(donut) {
-      Restangular.all('donuts').post(donut).then(function(d) {
+      Restangular.all('donuts').post(donut)
+      .then(function(d) {
         $scope.gridOptions.data.push({
           title: d.title,
           flavor: d.flavor,
@@ -23,12 +24,23 @@ donutApp.controller('indexController', ['$scope', 'Restangular', 'uiGridConstant
           country: d.country,
           resource: d
         });
+
         $scope.dialogShown = false;
+      }, function(err) {
+        if (err.status === 422) {
+          $scope.error = _.map(err.data, function(messages, field) {
+            return _.capitalize(field) + ' ' + messages.join(', ');
+          });
+        }
+        else {
+          $scope.error = [err.statusText];
+        }
       });
     };
 
     $scope.reset = function() {
-      $scope.donut = angular.copy({});
+      $scope.error = '';
+      $scope.donut = angular.copy({calories: 0});
     };
 
     $scope.reset();
@@ -43,13 +55,11 @@ donutApp.controller('indexController', ['$scope', 'Restangular', 'uiGridConstant
         },
         {
           name: 'flavor',
-          type: 'string',
-          enableCellEdit: true
+          type: 'string'
         },
         {
           name: 'calories',
           type: 'number',
-          enableCellEdit: true,
           filters: [
             {
               condition: uiGridConstants.filter.GREATER_THAN,
@@ -87,6 +97,7 @@ donutApp.controller('indexController', ['$scope', 'Restangular', 'uiGridConstant
     };
 
     $scope.toggleDialog = function() {
+      $scope.reset();
       $scope.dialogShown = !$scope.dialogShown;
     };
 

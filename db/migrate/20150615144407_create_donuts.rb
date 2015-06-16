@@ -1,11 +1,11 @@
 class CreateDonuts < ActiveRecord::Migration
   def change
     create_table :donuts do |t|
-      t.string :flavor
-      t.float :calories
+      t.string :flavor, null: false
+      t.float :calories, null: false
       t.string :brand
-      t.integer :shape
-      t.string :title
+      t.integer :shape, null: false
+      t.string :title, null: false
       t.string :country
 
       t.timestamps null: false

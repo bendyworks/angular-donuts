@@ -6,21 +6,50 @@
   <div ng-controller="indexController">
     <div ui-grid="gridOptions" ui-grid-edit class="donutGrid"></div>
     <modal-dialog show='dialogShown' dialog-title='New Donut'>
-      <form novalidate class="simple-form">
-        Title: <input type="text" ng-model="donut.title" /><br />
-        Flavor: <input type="text" ng-model="donut.flavor" /><br />
-        Calories: <input type="number" ng-model="donut.calories" /><br />
-        Brand: <input type="text" ng-model="donut.brand" /><br />
-        Shape: <select ng-model="donut.shape" ng-init="donut.shape='donut'">
-          <option value="donut">donut</option>
-          <option value="filled">filled</option>
-          <option value="hole">hole</option>
-          <option value="fritter">fritter</option>
-        </select><br />
-        Country: <input type="text" ng-model="donut.country" /><br />
-        <input type="button" ng-click="reset()" value="Reset" />
-        <input type="submit" ng-click="update(donut)" value="Save" />
-      </form>
+      <ul>
+        <div ng-repeat="e in error" style="color: red; font-weight: bold;">
+          <li>{{e}}</li>
+        </div>
+      </ul>
+        <form novalidate class="simple-form">
+          <table><tbody>
+            <tr>
+              <td>Title:</td>
+              <td><input type="text" ng-model="donut.title" /></td>
+            </tr>
+            <tr>
+              <td>Flavor:</td>
+              <td><input type="text" ng-model="donut.flavor" /></td>
+            </tr>
+            <tr>
+              <td>Calories:</td>
+              <td><input type="number" ng-model="donut.calories" /></td>
+            </tr>
+            <tr>
+              <td>Brand:</td>
+              <td><input type="text" ng-model="donut.brand" /></td>
+            </tr>
+            <tr>
+              <td>Shape:</td>
+              <td>
+                <select ng-model="donut.shape" ng-init="donut.shape='donut'">
+                  <option value="donut">donut</option>
+                  <option value="filled">filled</option>
+                  <option value="hole">hole</option>
+                  <option value="fritter">fritter</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Country:</td>
+              <td><input type="text" ng-model="donut.country" /></td>
+            </tr>
+          </tbody></table>
+          <br>
+
+          <input type="button" ng-click="reset()" value="Reset" />
+          <input type="submit" ng-click="update(donut)" value="Save" />
+        </form>
     </modal-dialog>
     <br>
 
