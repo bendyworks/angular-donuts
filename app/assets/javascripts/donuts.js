@@ -3,11 +3,36 @@ console.log('im alive');
 var donutApp = angular.module('donutApp', ['restangular',
                                            'ui.grid',
                                            'ui.grid.edit',
+                                           'ngModal',
                                            'ng-rails-csrf']);
 
 donutApp.controller('indexController', ['$scope', 'Restangular', 'uiGridConstants',
   function($scope, Restangular, uiGridConstants) {
     Restangular.setRequestSuffix('.json');
+    $scope.dialogShown = false;
+
+    $scope.update = function(donut) {
+      Restangular.all('donuts').post(donut).then(function(d) {
+        $scope.gridOptions.data.push({
+          title: d.title,
+          flavor: d.flavor,
+          calories: d.calories,
+          brand: d.brand,
+          shape: d.shape,
+          url: 'donuts/' + d.id,
+          country: d.country,
+          resource: d
+        });
+        $scope.dialogShown = false;
+      });
+    };
+
+    $scope.reset = function() {
+      $scope.donut = angular.copy({});
+    };
+
+    $scope.reset();
+
     $scope.gridOptions = {
       enableFiltering: true,
       columnDefs: [
@@ -59,6 +84,10 @@ donutApp.controller('indexController', ['$scope', 'Restangular', 'uiGridConstant
         rowEntity.resource[colDef.name] = rowEntity[colDef.name];
         rowEntity.resource.put();
       });
+    };
+
+    $scope.toggleDialog = function() {
+      $scope.dialogShown = !$scope.dialogShown;
     };
 
     Restangular.all('donuts').getList().then(function(donuts) {

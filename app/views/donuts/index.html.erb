@@ -5,9 +5,27 @@
 <div ng-app="donutApp">
   <div ng-controller="indexController">
     <div ui-grid="gridOptions" ui-grid-edit class="donutGrid"></div>
+    <modal-dialog show='dialogShown' dialog-title='New Donut'>
+      <form novalidate class="simple-form">
+        Title: <input type="text" ng-model="donut.title" /><br />
+        Flavor: <input type="text" ng-model="donut.flavor" /><br />
+        Calories: <input type="number" ng-model="donut.calories" /><br />
+        Brand: <input type="text" ng-model="donut.brand" /><br />
+        Shape: <select ng-model="donut.shape" ng-init="donut.shape='donut'">
+          <option value="donut">donut</option>
+          <option value="filled">filled</option>
+          <option value="hole">hole</option>
+          <option value="fritter">fritter</option>
+        </select><br />
+        Country: <input type="text" ng-model="donut.country" /><br />
+        <input type="button" ng-click="reset()" value="Reset" />
+        <input type="submit" ng-click="update(donut)" value="Save" />
+      </form>
+    </modal-dialog>
+    <br>
+
+    <a href="" ng-click="toggleDialog()">New Donut</a>
   </div>
+
 </div>
 
-<br>
-
-<%= link_to 'New Donut', new_donut_path %>

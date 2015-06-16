@@ -27,6 +27,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-ui-grid'
   gem 'rails-assets-restangular'
   gem 'rails-assets-ng-rails-csrf'
+  gem 'rails-assets-ngModal'
 end
 
 # Use ActiveModel has_secure_password
