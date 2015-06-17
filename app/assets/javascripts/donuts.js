@@ -69,7 +69,7 @@ donutApp.controller('indexController', ['$scope', 'Restangular', 'uiGridConstant
               condition: uiGridConstants.filter.LESS_THAN,
               placeholder: 'Lesser Than'
             }
-          ],
+          ]
         },
         {name: 'brand', type: 'string'},
         {
