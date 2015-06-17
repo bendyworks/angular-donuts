@@ -1,3 +1,5 @@
+window.onunload = function() { };
+
 var donutApp = angular.module('donutApp', ['restangular',
                                            'ui.grid',
                                            'ui.grid.edit',
